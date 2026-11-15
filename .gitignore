@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+# datasets and training artefacts (re-create with scripts/)
+data/datasets/
+outputs/training/
+outputs/evaluation/
+# model weights are downloaded / trained (see models/README.md)
+models/*.pt
+!models/ppe_yolo11n_best.pt
+*.part
+.DS_Store

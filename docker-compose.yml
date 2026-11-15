@@ -1,0 +1,47 @@
+# Usage:
+#   docker compose up -d hadoop              # single-node Hadoop (HDFS + YARN + MapReduce)
+#   docker compose up -d dashboard           # Streamlit dashboard on http://localhost:8501
+#   docker compose run --rm pipeline python scripts/run_pipeline.py --input data/sample/images --camera cam_A
+#   docker compose down                      # stop (add -v to also delete HDFS data)
+services:
+  hadoop:
+    build: ./docker/hadoop
+    image: msa-hadoop:3.3.6
+    container_name: msa-hadoop
+    hostname: msa-hadoop
+    ports:
+      - "9870:9870"    # HDFS NameNode web UI
+      - "9000:9000"    # HDFS RPC
+      - "8088:8088"    # YARN ResourceManager web UI
+      - "9864:9864"    # DataNode web UI
+      - "19888:19888"  # MapReduce JobHistory web UI
+    volumes:
+      - .:/project               # project files visible to hdfs/hadoop commands
+      - hadoop_data:/hadoop      # persistent HDFS storage
+
+  dashboard:
+    build: .
+    image: msa-app:latest
+    container_name: msa-dashboard
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./outputs:/app/outputs
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./config:/app/config
+
+  pipeline:
+    image: msa-app:latest
+    build: .
+    profiles: ["tools"]
+    volumes:
+      - ./outputs:/app/outputs
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./config:/app/config
+    entrypoint: []
+    command: ["python", "scripts/run_pipeline.py", "--help"]
+
+volumes:
+  hadoop_data:

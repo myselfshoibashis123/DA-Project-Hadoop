@@ -1,0 +1,6 @@
+violation_class,tp,fp,fn,tn,images_with_violation,precision,recall,f1
+no_helmet,64,3,27,106,91,0.9552,0.7033,0.8101
+no_goggle,6,2,50,142,56,0.75,0.1071,0.1875
+no_gloves,60,5,34,101,94,0.9231,0.6383,0.7547
+no_boots,45,7,26,122,71,0.8654,0.6338,0.7317
+no_vest,62,2,22,114,84,0.9688,0.7381,0.8378

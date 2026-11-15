@@ -1,0 +1,12 @@
+{
+  "weights": "ppe_yolo11n_best.pt",
+  "split": "test",
+  "imgsz": 416,
+  "images": 200,
+  "precision": 0.8247,
+  "recall": 0.5721,
+  "f1": 0.6756,
+  "mAP50": 0.6436,
+  "mAP50_95": 0.4314,
+  "image_level_violation_conf": 0.3
+}

@@ -1,0 +1,28 @@
+{
+  "runs": [
+    {
+      "frames_analysed": 8,
+      "worker_observations": 11,
+      "unassigned_violation_boxes": 0,
+      "observations_with_violations": 10,
+      "total_violations": 15,
+      "violations_by_category": {
+        "forklift_proximity": 4,
+        "missing_helmet": 3,
+        "missing_gloves": 3,
+        "missing_vest": 2,
+        "missing_boots": 2,
+        "restricted_zone": 1
+      },
+      "observations_by_risk_level": {
+        "None": 1,
+        "Low": 2,
+        "Medium": 7,
+        "High": 1
+      },
+      "input_type": "images",
+      "camera_id": "cam_A",
+      "n_inputs": 8
+    }
+  ]
+}

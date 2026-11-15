@@ -1,0 +1,11 @@
+run_id,camera_id,source,frame_index,timestamp,worker_id,assigned,risk_score,risk_level,violations,zones,forklift_gap,ppe_helmet,ppe_vest,ppe_gloves,ppe_goggles,ppe_boots
+20261113-182814-02f516,cam_A,source-23d79ca5bf1c6544231641a70af3f37d.jpg,0,2026-11-12T08:00:00,w0,True,4,Medium,missing_helmet;missing_gloves,,,missing,worn,missing,unknown,worn
+20261113-182814-02f516,cam_A,source-6af78fcdef2424c52bcfefc5f4cf220d.jpg,1,2026-11-12T08:15:00,w0,True,3,Medium,forklift_proximity,,0.62,unknown,worn,unknown,unknown,unknown
+20261113-182814-02f516,cam_A,source-6af78fcdef2424c52bcfefc5f4cf220d.jpg,1,2026-11-12T08:15:00,w1,True,3,Medium,forklift_proximity,,0.344,unknown,worn,unknown,unknown,unknown
+20261113-182814-02f516,cam_A,source-6af78fcdef2424c52bcfefc5f4cf220d.jpg,1,2026-11-12T08:15:00,w2,True,3,Medium,forklift_proximity,,0.22,unknown,unknown,unknown,unknown,unknown
+20261113-182814-02f516,cam_A,ultralytics-ppe-nov2026-173.jpg,2,2026-11-12T08:30:00,w0,True,3,Medium,forklift_proximity,,0.24,worn,worn,worn,worn,worn
+20261113-182814-02f516,cam_A,ultralytics-ppe-nov2026-224.jpg,3,2026-11-12T08:45:00,w0,True,3,Medium,missing_helmet,,,missing,worn,worn,worn,unknown
+20261113-182814-02f516,cam_A,ultralytics-ppe-nov2026-275.jpg,4,2026-11-12T09:00:00,w0,True,7,High,missing_helmet;missing_vest;missing_gloves;missing_boots,,,missing,missing,missing,worn,missing
+20261113-182814-02f516,cam_A,ultralytics-ppe-nov2026-300.jpg,5,2026-11-12T09:15:00,w1,True,5,Medium,missing_boots;restricted_zone,machine_floor_hazard,,worn,worn,unknown,worn,missing
+20261113-182814-02f516,cam_A,ultralytics-ppe-nov2026-575.jpg,6,2026-11-12T09:30:00,w0,True,2,Low,missing_vest,,,unknown,missing,unknown,unknown,worn
+20261113-182814-02f516,cam_A,ultralytics-ppe-nov2026-650.jpg,7,2026-11-12T09:45:00,w0,True,1,Low,missing_gloves,,,worn,worn,missing,worn,worn

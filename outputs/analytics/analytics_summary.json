@@ -1,0 +1,44 @@
+{
+  "frames_analysed": 40,
+  "frames_with_violations": 40,
+  "total_workers_detected": 65,
+  "compliant_workers": 9,
+  "observations_with_violations": 57,
+  "total_violations": 82,
+  "average_risk_score": 2.894,
+  "violations_by_category": {
+    "forklift_proximity": 27,
+    "missing_gloves": 18,
+    "missing_helmet": 15,
+    "missing_vest": 10,
+    "missing_boots": 7,
+    "restricted_zone": 5
+  },
+  "violations_by_risk_level": {
+    "High": 9,
+    "Low": 12,
+    "Medium": 36,
+    "None": 9
+  },
+  "violations_by_camera": {
+    "cam_A": 15,
+    "cam_B": 67
+  },
+  "violations_by_hour": {
+    "2026-11-12T08:00": 7,
+    "2026-11-12T09:00": 8,
+    "2026-11-12T10:00": 67
+  },
+  "workers_by_camera": {
+    "cam_A": 11,
+    "cam_B": 54
+  },
+  "_provenance": {
+    "execution_mode": "local-simulation",
+    "is_real_hadoop": false,
+    "source": "local files: outputs/run_cam_A/detections/frames.jsonl, outputs/run_cam_A/detections/observations.jsonl, outputs/run_cam_B/detections/frames.jsonl, outputs/run_cam_B/detections/observations.jsonl",
+    "job_seconds": 0.06,
+    "generated_at": "2026-11-13T18:28:26",
+    "raw_output_file": "mapreduce_part-00000.txt"
+  }
+}

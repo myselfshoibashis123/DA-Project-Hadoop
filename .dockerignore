@@ -1,0 +1,7 @@
+data/datasets
+outputs/training
+outputs/evaluation
+.git
+__pycache__
+*.pyc
+.pytest_cache

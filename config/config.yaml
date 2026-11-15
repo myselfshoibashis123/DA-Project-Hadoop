@@ -1,0 +1,105 @@
+# =====================================================================
+# Manufacturing Safety Analytics - central configuration
+# All paths are relative to the project root unless absolute.
+# =====================================================================
+
+project:
+  name: manufacturing-safety-analytics
+  outputs_dir: outputs
+  data_dir: data
+
+dataset:
+  # Ultralytics Construction-PPE dataset (CC BY 4.0), ~1,000 images, 12 classes.
+  # Docs: https://docs.ultralytics.com/datasets/detect/construction-ppe
+  name: construction-ppe
+  url: https://github.com/ultralytics/assets/releases/download/v0.0.0/construction-ppe.zip
+  raw_dir: data/datasets/raw
+  prepared_dir: data/datasets/construction-ppe
+  yaml_path: data/datasets/construction-ppe.yaml
+  max_side: 640          # images are resized so their longest side is <= this
+  val_fraction: 0.15     # fraction of the ORIGINAL train split held out for validation
+  seed: 42               # the ORIGINAL val split (200 images) becomes our held-out TEST split
+
+models:
+  # PPE model trained on Construction-PPE (see scripts/train_ppe_model.py)
+  ppe_weights: models/ppe_yolo11n_best.pt
+  # Generic COCO-pretrained detector used for person detection
+  person_weights: models/yolo11n.pt
+  pretrained_base: yolo11n.pt
+  weights_base_url: https://github.com/ultralytics/assets/releases/download/v8.3.0
+  imgsz: 640
+  device: cpu            # "cpu", "0" for first GPU, etc.
+
+detection:
+  ppe_conf: 0.30
+  person_conf: 0.40
+  iou: 0.50
+  # Where person boxes come from: "ppe_model", "coco", or "both" (merged with NMS)
+  person_source: both
+  person_merge_iou: 0.50
+  # ...and drops a lower-confidence person box when kept boxes already cover this share
+  # of its area (removes one box spanning two adjacent workers)
+  person_merge_coverage: 0.70
+  # A PPE box is attached to the person whose box covers the largest share of it,
+  # provided that share is at least this value.
+  association_min_overlap: 0.50
+
+# Class names of the PPE model (must match the dataset YAML)
+classes:
+  person: Person
+  forklift: forklift
+  ppe_items:            # item -> (positive class, negative class)
+    helmet:  {positive: helmet,  negative: no_helmet}
+    vest:    {positive: vest,    negative: no_vest}
+    gloves:  {positive: gloves,  negative: no_gloves}
+    goggles: {positive: goggles, negative: no_goggle}
+    boots:   {positive: boots,   negative: no_boots}
+
+ppe_policy:
+  # PPE that is mandatory on this site. Only required items can create violations.
+  required: [helmet, vest, gloves, goggles, boots]
+  # By default only an explicit negative detection (e.g. "no_helmet") counts as a
+  # violation; absence of a positive detection is recorded as "unknown" because the
+  # item may simply be out of frame or occluded. Items listed here instead treat
+  # "unknown" as "missing" (stricter, more false positives).
+  treat_unknown_as_missing: []
+
+risk:
+  # Points added per condition for one worker in one frame
+  weights:
+    missing_helmet: 3
+    missing_vest: 2
+    missing_gloves: 1
+    missing_goggles: 1
+    missing_boots: 1
+    restricted_zone: 4
+    forklift_proximity: 3
+  # score >= high -> High ; score >= medium -> Medium ; score >= 1 -> Low ; 0 -> None
+  thresholds:
+    medium: 3
+    high: 6
+  # A worker is "near" a forklift when the gap between the worker's foot point and the
+  # forklift box is smaller than this multiple of the worker's box height.
+  forklift_proximity_ratio: 0.75
+
+# Restricted / hazardous zones. Polygons use NORMALISED coordinates (0..1) so the same
+# zone definition works for any image size. A worker is inside a zone when the bottom
+# centre of their bounding box (foot point) lies inside the polygon.
+zones:
+  - name: machine_floor_hazard
+    cameras: ["*"]           # "*" = all cameras
+    polygon: [[0.62, 0.55], [0.98, 0.55], [0.98, 0.98], [0.62, 0.98]]
+
+hdfs:
+  base_dir: /safety_analytics
+  raw_images: /safety_analytics/raw/images
+  raw_videos: /safety_analytics/raw/videos
+  processed_frames: /safety_analytics/processed/frames
+  detections: /safety_analytics/detections
+  mapreduce_output: /safety_analytics/analytics/mapreduce_output
+  docker_container: msa-hadoop     # used when `hdfs` is not on PATH
+  container_project_dir: /project  # where docker-compose mounts this project
+
+video:
+  frame_stride: 5         # analyse every Nth frame
+  max_frames: 0           # 0 = no limit

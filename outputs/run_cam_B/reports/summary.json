@@ -1,0 +1,30 @@
+{
+  "runs": [
+    {
+      "frames_analysed": 32,
+      "worker_observations": 54,
+      "unassigned_violation_boxes": 1,
+      "observations_with_violations": 47,
+      "total_violations": 67,
+      "violations_by_category": {
+        "forklift_proximity": 23,
+        "missing_gloves": 15,
+        "missing_helmet": 12,
+        "missing_vest": 8,
+        "missing_boots": 5,
+        "restricted_zone": 4
+      },
+      "observations_by_risk_level": {
+        "None": 8,
+        "Low": 10,
+        "Medium": 29,
+        "High": 8
+      },
+      "input_type": "video",
+      "camera_id": "cam_B",
+      "source": "site_walkthrough.mp4",
+      "fps": 10.0,
+      "frame_stride": 5
+    }
+  ]
+}

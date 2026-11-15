@@ -1,0 +1,25 @@
+{
+  "model": "YOLO11n fine-tuned on Construction-PPE (prepared split: 680 train / 120 val)",
+  "device": "CPU (single shared core)",
+  "imgsz": 416,
+  "batch": 8,
+  "stage1": {
+    "start_weights": "yolo11n.pt (COCO)",
+    "planned_epochs": 30,
+    "completed_epochs": 5,
+    "note": "run was interrupted by the build environment after epoch 5; training continued in stage 2 from its last.pt",
+    "best_val_mAP50": 0.60156
+  },
+  "stage2": {
+    "start_weights": "stage-1 last.pt",
+    "epochs": 12,
+    "training_seconds": 1497.9,
+    "best_val_mAP50": 0.67969,
+    "best_val_mAP50_95": 0.47014
+  },
+  "total_epochs": 17,
+  "commands": [
+    "python scripts/train_ppe_model.py --epochs 30 --imgsz 416 --batch 8 --workers 1   # stopped after epoch 5",
+    "python scripts/train_ppe_model.py --base outputs/training/ppe_yolo11n/weights/last.pt --epochs 12 --imgsz 416 --batch 8 --workers 1 --name ppe_yolo11n_stage2"
+  ]
+}
